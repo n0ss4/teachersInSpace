@@ -2,7 +2,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: p
 
 function preload() {
 
-    game.load.atlas('breakout', 'img/breakout.png', 'img/breakout.json');
+    game.load.atlas('breakout', 'img/breakout.png', 'breakout.json');
     game.load.image('starfield', 'img/starfield.png');
 
 }
