@@ -18,6 +18,8 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+var profesores = [];
+var elegido;
 
 function preload ()
 {
@@ -39,6 +41,7 @@ function create ()
     // IMAGEN de FONDO a 100%
     this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'fondo').setOrigin(0);
 
+
     // POSICIONES de LOS PROFESORES
     juaky =     this.add.sprite(w-1250, y, 'juaky');
     vallejo =   this.add.sprite(w-1050, y, 'vallejo');
@@ -47,13 +50,14 @@ function create ()
     josep =     this.add.sprite(w-450, y, 'josep');
     valles =    this.add.sprite(w-250, y, 'valles');
 
-    // HACER que los SPRITE's SEAN CLICKABLES
-    juaky.setInteractive();
-    vallejo.setInteractive();
-    marc.setInteractive();
-    albert.setInteractive();
-    josep.setInteractive();
-    valles.setInteractive();
+    // Añadiendo los profesores en el array.
+    profesores.push(juaky,vallejo,marc,albert,josep,valles);
+
+    // HACER que los SPRITE's SEAN CLICKABLES,
+    // el "useHandCursor: true" hace la misma función que en CSS en "cursor: pointer"
+    for(let i = 0; i < profesores.length; i++){
+        profesores[i].setInteractive({useHandCursor: true});
+    }
 
     // AL PULSAR uno de los SPRITE's que llame a la FUNCIÓN LISTENER
     this.input.on('gameobjectdown', listener);
@@ -61,14 +65,27 @@ function create ()
 
 function update ()
 {
-    
+    elegido = this.input.x;
 }
 
 function listener (pointer, gameObject) {
     
-    // UN EJEMPLO MOSTRANDO EL NOMBRE DE LOS PROFESORES
-    alert(gameObject.texture.key);
+    // Una vez seleccionado el profesor que quieres se eliminaran los demas.
+    for(let i = 0; i < profesores.length; i++){
+        if(gameObject.texture.key != profesores[i].texture.key){
+            profesores[i].visible = false;
+        }
+    }
 
+    // Eliminar el array profesores ya que no lo utilizaremos más
+    profesores.splice(0);
+
+    // El profesor elegido guardarlo en está variable
+    elegido = gameObject;
+
+    // El profesor seleccionado se colocara en el centro de la pantalla.
+    elegido.x = w/2;
+    elegido.y = h-100;
 }
 
 
