@@ -10,7 +10,7 @@ _________ _______  _______  _______           _______  _______  _______   ______
    | |   | (____/\| )   ( || (____/\| )   ( || (____/\| ) \ \__/\____) |  ___) (___| )  \  |  /\____) || )      | )   ( || (____/\| (____/\  
    )_(   (_______/|/     \|(_______/|/     \|(_______/|/   \__/\_______)  \_______/|/    )_)  \_______)|/       |/     \|(_______/(_______/ 
                                                                                                                                              
-  by n0ss4, dayachi and zyro.
+  by n0ss4, davidam22 and zyro.
 
  */
 
@@ -78,11 +78,25 @@ function create ()
 
     // AL PULSAR uno de los SPRITE's que llame a la FUNCIÓN LISTENER
     this.input.on('gameobjectdown', listener);
+
+    // Para que se puedan mover los INPUT's.
+    this.keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+    this.keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 }
 
 function update ()
 {
-    elegido = this.input.x;
+    // 
+    if (elegido != undefined) {
+        if (this.keyLeft.isDown) {
+            elegido.x = elegido.x - 10;
+        }
+    
+        if(this.keyRight.isDown){
+            elegido.x = elegido.x + 10;
+        }
+    }
+
 }
 
 function listener (pointer, gameObject) {
@@ -103,6 +117,7 @@ function listener (pointer, gameObject) {
     // El profesor seleccionado se colocara en el centro de la pantalla.
     elegido.x = w/2;
     elegido.y = h-100;
+
 }
 
 
