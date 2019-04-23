@@ -1,33 +1,44 @@
 class Inicio extends Phaser.Scene {
-    constructor(){
-        super({ key: "Inicio" });
-    }
+  constructor() {
+    super({ key: "Inicio" });
+  }
 
-    preload(){
-        // FONDO
-        this.load.image('fondo', 'img/starfield.png');
+  preload() {
+    // FONDO
+    this.load.image("fondo", "img/starfield.png");
 
-        // BOTÓ
-        this.load.image('btnInicio', 'img/btnInicio.png');
-        this.load.image('btnText', 'img/btnText.png');
-        
-    }
+    // TITLE
+    this.load.image("titulo", "img/tis.png");
 
-    create(){
-        // IMAGEN de FONDO a 100%
-        this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'fondo').setOrigin(0);
+    // BOTÓ
+    this.load.image("btnInicio", "img/btnInicio.png");
+    this.load.image("btnText", "img/btnText.png");
+  }
 
-        this.btnInicio = this.add.image(0, 0, 'btnInicio');
-        this.btnText = this.add.image(0, 0, 'btnText');
+  create() {
+    // IMAGEN de FONDO a 100%
+    this.bg = this.add
+      .tileSprite(0, 0, game.config.width, game.config.height, "fondo")
+      .setOrigin(0);
 
-        this.container = this.add.container(w/2, h/2, [ this.btnInicio, this.btnText ]);
+    this.title = this.add.image(w / 2, h / 2 - 110, "titulo");
 
-        this.btnInicio.setInteractive({useHandCursor: true});
+    this.btnInicio = this.add.image(0, 0, "btnInicio");
+    this.btnText = this.add.image(0, 0, "btnText");
 
-        this.input.on('gameobjectdown', function(){
-            this.scene.start("EscogerJugador");
-        }, this);
+    this.container = this.add.container(w / 2, h / 2, [
+      this.btnInicio,
+      this.btnText
+    ]);
 
-    }
-    
+    this.btnInicio.setInteractive({ useHandCursor: true });
+
+    this.input.on(
+      "gameobjectdown",
+      function() {
+        this.scene.start("EscogerJugador");
+      },
+      this
+    );
+  }
 }
